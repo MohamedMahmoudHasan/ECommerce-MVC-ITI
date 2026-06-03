@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "_CRUDLayout";
+    ViewData["Title"] = "Edit";
+
+}
+
+
+@model ProductEditMVPL
+
+<h1 class="my-2">Edit Product</h1>
+
+
+<form asp-controller="Product" asp-action="Edit" enctype="multipart/form-data">
+    <div class="mb-3">
+        <input asp-for="Id" hidden readonly class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input asp-for="Description" class="form-control">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Count" class="form-label"></label>
+        <input asp-for="Count" class="form-control">
+        <span asp-validation-for="Count" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ExpiryDate" class="form-label"></label>
+        <input asp-for="ExpiryDate" class="form-control">
+        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+    </div>
+
+    <input asp-for="CurrentImageUrl" type="hidden" />
+
+    <div class="mb-3">
+        <label class="form-label">Current Image</label>
+        @if (!string.IsNullOrEmpty(Model.CurrentImageUrl))
+        {
+            <div class="d-flex align-items-start gap-3">
+                <img src="~/Images/Products/@Model.CurrentImageUrl" alt="Product Image" style="max-width: 200px; max-height: 200px;" class="img-thumbnail" />
+                <a asp-action="DeleteImage" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this image?')">Delete Image</a>
+            </div>
+        }
+        else
+        {
+            <p>No image uploaded for this product.</p>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NewImage" class="form-label"></label>
+        <input asp-for="NewImage" class="form-control" type="file" accept="image/*">
+        <span asp-validation-for="NewImage" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Category</label>
+        <select asp-for="CategoryId" asp-items="@Model.Category" class="form-control">
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}

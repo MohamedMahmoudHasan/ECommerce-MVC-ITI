@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "All";
+}
+@model IEnumerable<ProductReadMV>
+
+<h1>All Products</h1>
+
+@if (User.IsInRole("Admin"))
+{
+<a asp-controller="Product" asp-action="Create" class="my-2 btn btn-primary"> Add New Product </a>
+}
+<a id="ClearFilter" class="my-2 ms-2 btn btn-danger"> Clear Filter </a>
+<div class="mb-3">
+    <label for="Category" class="form-label">Category</label>
+    <select id="Category" asp-items="@ViewBag.Categories" class="form-control">
+        <option disabled selected>Select Category</option>
+    </select>
+</div>
+
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Count</th>
+            <th scope="col">ExpiryDate</th>
+            <th scope="col">Image</th>
+            <th scope="col">Category</th>
+            <th scope="col">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+         @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Counter</td>
+                <td>@product.Title</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.Count</td>
+                <td>@(product.ExpiryDate?.ToString("yyyy-MM-dd") ?? "No Expiry Date")</td>
+                <td><img src="~/Images/Products/@product.ImageURL" width="50px" height="30px" alt="@product.Title" /></td>
+                <td>@product.Category</td>
+                <td class="d-flex gap-1 justify-content-center">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary">Edit</a>
+                    <a data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger delete-btn" data-id="@product.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+         
+    </tbody>
+</table>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a class="btn btn-danger" id="delete-save-btn">Save changes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    let deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            let productId = this.getAttribute('data-id');
+            let modalBody = document.querySelector('.modal-body');
+            let deleteSaveBtn = document.querySelector('#delete-save-btn');
+            modalBody.innerHTML = `Are you sure you want to delete product this Product`;
+            deleteSaveBtn.setAttribute('href', `/Product/Delete/${productId}`);
+        });
+    });
+    
+    let CategoryId = document.querySelector('#Category');
+    let tableBody = document.querySelector('#tableBody');
+    let ClearFilter = document.querySelector('#ClearFilter');
+    CategoryId.addEventListener('change' , ()=>{
+
+
+        getProductsByCat(CategoryId.value);
+        
+    })
+    ClearFilter.addEventListener('click' , ()=>{
+
+        Clear();
+
+        
+    })
+
+    async function getProductsByCat(CategoryId) {
+        const response = await fetch(`/Product/GetProductByCategory/${CategoryId}`, {
+            method: 'GET',
+        });
+
+        if (response.ok) {
+            const data = await response.text();
+            tableBody.innerHTML =  data;
+        }
+    }
+
+    async function Clear() {
+        CategoryId.selectedIndex = 0;
+        const response = await fetch(`/Product/GetProductByCategory`, {
+            method: 'GET',
+        });
+
+        if (response.ok) {
+            const data = await response.text();
+            tableBody.innerHTML =  data;
+        }
+    }
+
+
+</script>

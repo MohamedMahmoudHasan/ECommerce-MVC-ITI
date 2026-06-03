@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "All";
+}
+
+@model IEnumerable<CategoryReadMV>
+
+<h1>All Categories</h1>
+
+@Html.ActionLink("Add New Category", "Create", "Category", null, new { @class = "my-2 btn btn-primary" })
+
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Counter</td>
+                <td>@category.Name</td>
+
+                <td class="d-flex gap-1 justify-content-center">
+                    @Html.ActionLink("View", "Details", "Category", new { id = category.Id }, new { @class = "btn btn-primary" })
+                    @if (User.IsInRole("Admin"))
+                    {
+                    @Html.ActionLink("Edit", "Edit", "Category", new { id = category.Id }, new { @class = "btn btn-secondary" })
+
+                    <a data-bs-toggle="modal"
+                       data-bs-target="#deleteModal"
+                       class="btn btn-danger delete-btn"
+                       data-id="@category.Id"
+                       data-url="@Url.Action("Delete", "Category", new { id = category.Id })">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@* @model IEnumerable<CategoryReadMV>
+
+<h1>All Categories</h1>
+
+
+<a asp-controller="Category" asp-action="Create" class="my-2 btn btn-primary"> Add New Category </a>
+
+
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            
+            <th scope="col">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Counter</td>
+                <td>@category.Name</td>
+                
+                <td class="d-flex gap-1 justify-content-center">
+                    <a asp-controller="Category" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">View</a>
+                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>
+                    <a data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger delete-btn" data-id="@category.Id">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table> *@
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a class="btn btn-danger" id="delete-save-btn">Save changes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    let deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            let categoryId = this.getAttribute('data-id');
+            let modalBody = document.querySelector('.modal-body');
+            let deleteSaveBtn = document.querySelector('#delete-save-btn');
+            modalBody.innerHTML = `Are you sure you want to delete product this Category`;
+            deleteSaveBtn.setAttribute('href', `/Category/Delete/${categoryId}`);
+        });
+    });
+
+</script>

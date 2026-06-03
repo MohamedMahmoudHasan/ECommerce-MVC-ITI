@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "_CRUDLayout";
+    ViewData["Title"] = "Create";
+
+}
+
+@model CategoryCreateMV
+
+<h1 class="my-2">Add New Category</h1>
+
+@using (Html.BeginForm("Create", "Category", FormMethod.Post))
+{
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    @Html.ActionLink("Cancel", "Index", "Category", null, new { @class = "btn btn-secondary" })
+}
+
+
+@* @model CategoryCreateMV
+    
+<h1 class="my-2">Add New Category</h1>
+
+
+<form asp-controller="Category" asp-action="Create">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" required>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-controller="Category" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form> *@

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ProductReadMV>
+
+@foreach (var product in Model)
+{
+    <tr>
+        <td>@product.Counter</td>
+        <td>@product.Title</td>
+        <td>@product.Description</td>
+        <td>@product.Price</td>
+        <td>@product.Count</td>
+        <td>@(product.ExpiryDate?.ToString("yyyy-MM-dd") ?? "No Expiry Date")</td>
+        <td><img src="~/Images/Products/@product.ImageURL" width="50px" height="30px" alt="@product.Title" /></td>
+        <td>@product.Category</td>
+        <td class="d-flex gap-1 justify-content-center">
+            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View</a>
+            @if (User.IsInRole("Admin"))
+            {
+            <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary">Edit</a>
+            <a data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger delete-btn" data-id="@product.Id">Delete</a>
+            }
+        </td>
+    </tr>
+}
+

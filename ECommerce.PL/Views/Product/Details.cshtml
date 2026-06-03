@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+@model ProductReadMV
+
+
+<div class="card">
+    <div class="card-header">
+        Product
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Title</h5>
+        <p class="card-text">@Model.Title</p>
+        <h5 class="card-title">Description</h5>
+        <p class="card-text">@Model.Description</p>
+        <h5 class="card-title">Price</h5>
+        <p class="card-text">@Model.Price</p>
+        <h5 class="card-title">Count</h5>
+        <p class="card-text">@Model.Count</p>
+        <h5 class="card-title">ExpiryDate</h5>
+        <p class="card-text">@(Model.ExpiryDate?.ToString("yyyy-MM-dd") ?? "No Expiry Date")</p>
+        <h5 class="card-title">Category</h5>
+        <p class="card-text">@Model.Category</p>
+        <a asp-controller="Product" asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+</div>

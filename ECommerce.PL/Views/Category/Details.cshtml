@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+@model CategoryReadMV
+
+<div class="card">
+    <div class="card-header">
+        Category
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Name</h5>
+        <p class="card-text">@Html.DisplayFor(m => m.Name)</p>
+
+        @Html.ActionLink("Back", "Index", "Category", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+
+@* @model CategoryReadMV
+
+
+<div class="card">
+    <div class="card-header">
+        Category
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Name</h5>
+        <p class="card-text">@Model.Name</p>
+        
+        <a asp-controller="Category" asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+</div> *@

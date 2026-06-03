@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+
+namespace ECommerce.PL
+{
+    public class ProductCreateMVPL
+    {
+        [Display(Name = "Product Title")]
+        [Remote(action: "IsTitleExist", controller: "Product")]
+        public string Title { get; set; } = default!;
+        [Required]
+        [MinLength(10)]
+        public string Description { get; set; } = default!;
+        [Required]
+        [Range(10, 30000, ErrorMessage = "Price must be greater than 10")]
+        public decimal Price { get; set; }
+        [Required]
+        public int Count { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [IsExpired]
+        public DateTime? ExpiryDate { get; set; }
+
+        [Required]
+        public IFormFile? Image { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+        public List<SelectListItem> Category { get; set; } = new List<SelectListItem>();
+    }
+}

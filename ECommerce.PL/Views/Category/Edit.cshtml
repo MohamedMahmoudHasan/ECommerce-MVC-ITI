@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = "_CRUDLayout";
+    ViewData["Title"] = "Edit";
+
+}
+
+@model CategoryEditMV
+
+<h1 class="my-2">Edit Category</h1>
+
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    @Html.ActionLink("Cancel", "Index", "Category", null, new { @class = "btn btn-secondary" })
+}
+
+
+@* @model CategoryEditMV
+
+<h1 class="my-2">Edit Category</h1>
+
+
+<form asp-controller="Category" asp-action="Edit">
+    <div class="mb-3">
+        <input type="hidden" readonly class="form-control" id="Id" name="Id" value="@Model.Id">
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+</form> *@
