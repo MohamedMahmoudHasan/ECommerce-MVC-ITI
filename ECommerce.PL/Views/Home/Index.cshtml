@@ -2,7 +2,127 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section text-white d-flex align-items-center mb-5" style="background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover; min-height: 500px; border-radius: 0 0 24px 24px;">
+    <div class="container px-4 text-center text-md-start">
+        <div class="row">
+            <div class="col-md-7">
+                <span class="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-bold tracking-wider" style="font-size: 0.8rem;">New Season Arrivals</span>
+                <h1 class="display-3 fw-bold mb-3 tracking-tight text-white">The Ultimate Shopping Experience</h1>
+                <p class="lead text-secondary-emphasis mb-4 fs-4" style="color: #cbd5e1 !important;">Discover our curated collection of premium products with unbeatable prices and exceptional quality.</p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-md-start">
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow fw-semibold">Shop Collection <i class="bi bi-arrow-right ms-2"></i></a>
+                    <a href="#categories" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fw-semibold">Browse Categories</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="container mb-5">
+    <div class="row g-4 mb-5 text-center">
+        <div class="col-md-4">
+            <div class="p-4 bg-white rounded-4 shadow-sm h-100 border border-light-subtle">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle p-3 mb-3">
+                    <i class="bi bi-truck fs-3"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Free & Fast Shipping</h5>
+                <p class="text-muted small mb-0">On all orders above $100. Delivered directly to your doorstep safely.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 bg-white rounded-4 shadow-sm h-100 border border-light-subtle">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle p-3 mb-3">
+                    <i class="bi bi-shield-check fs-3"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Secure Payments</h5>
+                <p class="text-muted small mb-0">100% protected SSL payment gateway. We accept all major credits cards.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 bg-white rounded-4 shadow-sm h-100 border border-light-subtle">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle p-3 mb-3">
+                    <i class="bi bi-headset fs-3"></i>
+                </div>
+                <h5 class="fw-bold mb-2">24/7 Dedicated Support</h5>
+                <p class="text-muted small mb-0">Anywhere, anytime. Our expert service team is here to guide you around the clock.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="categories" class="my-5 pt-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark mb-2">Popular Categories</h2>
+            <p class="text-muted">Explore our most demanded store segments right now.</p>
+        </div>
+
+        <div class="row row-cols-2 row-cols-md-4 g-4 text-center">
+            <div class="col">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none group-category">
+                    <div class="category-circle mx-auto bg-white rounded-circle shadow-sm border p-4 mb-3 d-flex align-items-center justify-content-center" style="width: 140px; height: 140px; transition: all 0.3s ease;">
+                        <i class="bi bi-laptop text-primary display-5"></i>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">Electronics</h6>
+                </a>
+            </div>
+            <div class="col">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none group-category">
+                    <div class="category-circle mx-auto bg-white rounded-circle shadow-sm border p-4 mb-3 d-flex align-items-center justify-content-center" style="width: 140px; height: 140px; transition: all 0.3s ease;">
+                        <i class="bi bi-watch text-primary display-5"></i>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">Accessories</h6>
+                </a>
+            </div>
+            <div class="col">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none group-category">
+                    <div class="category-circle mx-auto bg-white rounded-circle shadow-sm border p-4 mb-3 d-flex align-items-center justify-content-center" style="width: 140px; height: 140px; transition: all 0.3s ease;">
+                        <i class="bi bi-gender-ambiguous text-primary display-5"></i>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">Fashion</h6>
+                </a>
+            </div>
+            <div class="col">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none group-category">
+                    <div class="category-circle mx-auto bg-white rounded-circle shadow-sm border p-4 mb-3 d-flex align-items-center justify-content-center" style="width: 140px; height: 140px; transition: all 0.3s ease;">
+                        <i class="bi bi-controller text-primary display-5"></i>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">Gaming</h6>
+                </a>
+            </div>
+        </div>
+    </div>
+    @if (!User.Identity!.IsAuthenticated)
+    {
+        
+    <div class="row mt-5 pt-4">
+        <div class="col-12">
+            <div class="card border-0 rounded-4 overflow-hidden shadow-sm" style="background: linear-gradient(135deg, #0d6efd 0%, #0a46a3 100%);">
+                <div class="card-body p-5 text-white">
+                    <div class="row align-items-center">
+                        <div class="col-md-8 text-center text-md-start mb-4 mb-md-0">
+                            <h3 class="fw-bold mb-2">Join the Club & Get 20% Off</h3>
+                            <p class="mb-0 text-white-50 fs-5">Sign up for an account today and enjoy a premium welcome coupon code instantly.</p>
+                        </div>
+                        <div class="col-md-4 text-center text-md-end">
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg rounded-pill px-4 py-3 fw-bold text-primary shadow-sm">Register Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+<style>
+    .group-category:hover .category-circle {
+        transform: scale(1.1);
+        border-color: #0d6efd !important;
+        box-shadow: 0 10px 20px rgba(13,110,253,0.1) !important;
+        background-color: #f0f7ff !important;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+    }
+</style>
